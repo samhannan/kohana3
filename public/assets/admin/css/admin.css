@@ -1,0 +1,64 @@
+
+/* Global
+================================================== */
+body {background:#54616b; font-size:13px}
+
+
+/* Site styles
+================================================== */
+.master-wrap {background:#fff; padding:20px 0; margin:20px 0 0 0}
+.container {}
+.container.transparent {background:transparent}
+.box-shadow {-moz-box-shadow: 0 0 3px 0 #2d353a; -webkit-box-shadow: 0 0 3px 0 #2d353a; box-shadow: 0 0 3px 0 #2d353a;}
+
+.head {padding:10px 0 0 0}
+.head h1 {font-size:30px;}
+
+ul.error {background:#fbdede; padding:10px 10px 5px 10px;}
+ul.error li {margin-bottom:5px;color:#d93636;}
+
+.left-nav-container {background:#e7ebef; margin:0 0 10px 0}
+.left-nav-container h1 {font-size:18px; color:#fff; background:#879cac; padding:0 5px 0 5px; line-height:40px}
+.left-nav-container ul {margin:10px}
+
+table.datagrid {width:100%}
+table.datagrid td, table.datagrid th {padding:5px; text-align:left; border:1px solid #fff;}
+table.datagrid td.act {text-align:center}
+table.datagrid th {background:#55626c; color:#fff; font-weight:bold}
+table.datagrid tr:nth-child(odd) td {background:#e7ebef}
+table.datagrid .button {margin:0;}
+
+
+/* Page styles
+================================================== */
+.login-container {text-align:center; margin:0 auto 0 auto; padding:20px 10px 5px 10px; width:280px; background:#fff;}
+.login-container h3 {margin:0 0 20px 0}
+.login-container form input {margin:5px auto 10px auto;}
+
+
+/* Media Queries
+================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+	table.datagrid {margin-top:10px}
+	table.datagrid td,
+	table.datagrid th {display:none; visibility:none}
+	table.datagrid td.responsive,
+	table.datagrid th.responsive {display:table-cell; visibility:visible; width:100%}
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}
+
