@@ -3,7 +3,8 @@
 return array(
 	'conf' => array(
 		'attributes' => array(
-			'name' => 'login'
+			'name' => 'login',
+			'class' => 'login'
 		),
 		'fields' => array(
 			array(

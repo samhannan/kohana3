@@ -11,6 +11,11 @@ return array(
 	'field' => array(
 		'required' => false,
 		'label' => 'Field Name',
+		'tooltip' => array(
+			'update' => true,
+			'add' => true,
+			'message' => false
+		),
 		'attributes' => array(
 			'type' => 'text',
 			'name' => 'fieldname',

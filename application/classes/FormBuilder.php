@@ -39,11 +39,11 @@ class FormBuilder
 	{
 		if(array_key_exists('attributes', $this->config)) {
 			$attr = arr::merge(
-				$this->default->get('attributes'),
+				$this->default['attributes'],
 				$this->config['attributes']
 			);
 		} else {
-			$attr = $this->default->get('attributes');
+			$attr = $this->default['attributes'];
 		}
 
 		$this->form .= Form::open($attr['action'], $attr)."\n";;
@@ -56,13 +56,16 @@ class FormBuilder
 	{
 		if(array_key_exists('submit', $this->config)) {
 			$attr = arr::merge(
-				$this->default->get('attributes'),
+				$this->default['submit']['attributes'],
 				$this->config['submit']['attributes']
 			);
 		} else {
-			$attr = $this->default->get('attributes');
+			$attr = $this->default['submit']['attributes'];
 		}
-		$this->form .= Form::submit(null, $attr['value'], $attr);
+		$tpl = "<div class='input-wrap close'>\n%s\n</div>\n";
+		$submit = Form::submit(null, $attr['value'], $attr);
+		$this->form .= sprintf($tpl, $submit);
+
 		$this->form .= Form::close()."\n";
 	}
 
@@ -71,37 +74,49 @@ class FormBuilder
 	 */
 	private function getFields()
 	{
-		$tpl = "<div class='input-wrap'>\n%s\n%s\n</div>\n";
+		$tpl = "<div class='input-wrap'>\n%s\n%s\n%s\n</div>\n";
 
 		foreach($this->config['fields'] as $k => $v) {
-			$attr = arr::merge(
-				$this->default->get('field.attributes'),
-				$v['attributes']
+			$conf = arr::merge(
+				$this->default['field'],
+				$v
 			);
-			$attr['id'] = $attr['name'];
+			$conf['attributes']['id'] = $conf['attributes']['name'];
 
 			// Field
-			switch($attr['type']) {
+			switch($conf['attributes']['type']) {
 				case 'text':
 					$field = Form::input(
-						$attr['name'],
-						Arr::get(Request::current()->post(), $attr['name'], ''),
-						$attr
+						$conf['attributes']['name'],
+						Arr::get(Request::current()->post(), $conf['attributes']['name'], ''),
+						$conf['attributes']
 					);
 				break;
 				case 'select':
 					$field = Form::select(
-						$attr['name'],
-						$v['options'],
-						Arr::get(Request::current()->post(), $attr['name'], ''),
-						$attr
+						$conf['attributes']['name'],
+						$conf['options'],
+						Arr::get(Request::current()->post(), $conf['attributes']['name'], ''),
+						$conf
 					);
 				break;
 			}
 
+			// Tooltip
+			$tooltip = false;
+			if($conf['tooltip']['message']) {
+				if(Request::current()->param('id') || $conf['tooltip']['update']) {
+					$tooltip = true;
+				}
+			}
+			if($tooltip) {
+				$tooltip = "<span class='glyphicon glyphicon-question-sign tooltip' title='".$conf['tooltip']['message']."'></span>";
+			}
+
 			$this->form .= sprintf($tpl,
-				Form::label($attr['name'], $v['label']),
-				$field
+				Form::label($conf['attributes']['name'], $conf['label']),
+				$field,
+				$tooltip
 			);
 		}
 	}

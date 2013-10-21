@@ -28,10 +28,11 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 		->bind('errors', $errors);
 
 		// Prepopulate post data if editing record
-		if($id = $this->request->param('id', false)) {
+		$id = $this->request->param('id', false);
+		$user = ORM::factory($this->model, $id);
+		if($id) {
 			$this->section = 'Edit User';
 			if($this->request->method() !== 'POST') {
-				$user = ORM::factory($this->model, $id);
 				// User
 				parent::setPost($id);
 				// User Detail
@@ -47,10 +48,6 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 		$user_detail = ORM::factory('User_Detail')->rules();
 
 		if($this->request->method() == 'POST' && $post = $this->request->post()) {
-			$user = ORM::factory('User', $id)
-				->values($this->request->post());
-			$user->username = $this->request->post('email');
-
 			$user_rules = $user->rules();
 			$user_detail_rules = ORM::factory('User_Detail')->rules();
 
@@ -68,10 +65,13 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 			if($external_validation->check()) {
 				try {
 					// Main user record
+					// Username should match email
+					$cols = array('email','username','password');
+					$post['username'] = $post['email'];
 					if(!$id) {
-						$user->create_user($post, array('username','email','password'));
+						$user->create_user($post, $cols);
 					} else {
-						$user->update_user($post, array('username','email','password'));
+						$user->update_user($post, $cols);
 						$user->remove('roles');
 					}
 

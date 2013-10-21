@@ -90,10 +90,10 @@ class Controller_Frontend extends Controller {
 
 	public function get_assets()
 	{
-		$js_tpl = '<script type="text/javascript" source="%s"></script>';
+		$js_tpl = '<script type="text/javascript" src="%s"></script>';
 		$js = false;
 
-		$css_tpl = '<script type="text/javascript" source="%s"></script>';
+		$css_tpl = '<link rel="stylesheet" type="text/css" href="%s">';
 		$css = false;
 
 		// JS
@@ -108,8 +108,8 @@ class Controller_Frontend extends Controller {
 
 		// CSS
 		if($this->linked_css) {
-			if(is_array($this->css) && count($this->css)) {
-				foreach($this->css as $link) {
+			if(is_array($this->linked_css) && count($this->linked_css)) {
+				foreach($this->linked_css as $link) {
 					$css .= sprintf($css_tpl, $link)."\n";;
 				}
 			}

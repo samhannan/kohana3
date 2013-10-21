@@ -10,7 +10,7 @@ return array(
 				'label' => 'Email Address',
 				'required' => true,
 				'attributes' => array(
-					'name' => 'email',
+					'name' => 'emaill',
 					'type' => 'text',
 				)
 			),
@@ -42,6 +42,10 @@ return array(
 			array(
 				'label' => 'Password',
 				'required' => true,
+				'tooltip' => array(
+					'update' => false,
+					'message' => 'Leave blank if you do not wish to update your password'
+				),
 				'attributes' => array(
 					'name' => 'password',
 					'type' => 'text',

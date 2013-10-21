@@ -4,7 +4,8 @@ class Controller_Admin_Index extends Controller_Admin_Admin {
 
 	public function action_index()
 	{
-		$view = View::factory('pages/home', array('var'=>'testing'));
+		$this->section = 'Admin home';
+		$view = View::factory('admin/pages/home');
 		$this->content = $view->render();
 	}
 

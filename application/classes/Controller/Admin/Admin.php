@@ -15,10 +15,11 @@ class Controller_Admin_Admin extends Controller_Frontend
 
 	public function after()
 	{
-		if($id = Request::current()->param('id', false)) {
+		if($id = $this->request->param('id', false)) {
 			$this->checkParam($id);
 		}
-		$this->extra_vars = array('section' => $this->section);
+		$this->setAdditionalVars();
+		$this->setAssets();
 		parent::after();
 	}
 
@@ -82,5 +83,32 @@ class Controller_Admin_Admin extends Controller_Frontend
 			return $params;
 		}
 		return true;
+	}
+
+	/**
+	 * Sets additional vars for use in template
+	 */
+	public function setAdditionalVars()
+	{
+		$arrUser = false;
+		if($user = Auth::instance()->get_user()) {
+			$arrUser = array(
+				'name' => $user->detail->firstname.' '.$user->detail->surname,
+				'email' => $user->email
+			);
+		}
+		$this->extra_vars = array(
+			'section' => $this->section,
+			'active_user' => $arrUser
+		);
+	}
+
+	public function setAssets()
+	{
+		// Tipsy required for form
+		if($this->request->action() == 'add') {
+			$this->linked_js[] = '/assets/admin/js/plugin/jquery.tipsy.js';
+			$this->linked_css[] = '/assets/admin/css/tipsy.css';
+		}
 	}
 }
