@@ -20,6 +20,7 @@ class Controller_Admin_Admin extends Controller_Frontend
 		}
 		$this->setAdditionalVars();
 		$this->setAssets();
+		$this->getAdminPages();
 		parent::after();
 	}
 
@@ -88,7 +89,7 @@ class Controller_Admin_Admin extends Controller_Frontend
 	/**
 	 * Sets additional vars for use in template
 	 */
-	public function setAdditionalVars()
+	private function setAdditionalVars()
 	{
 		$arrUser = false;
 		if($user = Auth::instance()->get_user()) {
@@ -103,7 +104,10 @@ class Controller_Admin_Admin extends Controller_Frontend
 		);
 	}
 
-	public function setAssets()
+	/**
+	 * Set assets (js, css et)
+	 */
+	private function setAssets()
 	{
 		// Tipsy required for form
 		if($this->request->action() == 'add') {
@@ -111,4 +115,23 @@ class Controller_Admin_Admin extends Controller_Frontend
 			$this->linked_css[] = '/assets/admin/css/tipsy.css';
 		}
 	}
+
+	/**
+	 * Gets and sets admin pages
+	 */
+	private function getAdminPages()
+	{
+		$objPages = ORM::factory('page')
+			->get_pages(Auth::instance()->get_user());
+	}
+
 }
+
+
+
+
+
+
+
+
+

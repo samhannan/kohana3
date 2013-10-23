@@ -10,10 +10,46 @@ Target Server Type    : MYSQL
 Target Server Version : 50051
 File Encoding         : 65001
 
-Date: 2013-10-21 10:31:44
+Date: 2013-10-23 11:15:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `tbladmin_pages`
+-- ----------------------------
+DROP TABLE IF EXISTS `tbladmin_pages`;
+CREATE TABLE `tbladmin_pages` (
+  `id` mediumint(5) NOT NULL,
+  `role_id` mediumint(5) NOT NULL,
+  `page` varchar(100) NOT NULL,
+  `section_id` mediumint(5) NOT NULL,
+  `date_add` datetime NOT NULL,
+  `date_upd` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of tbladmin_pages
+-- ----------------------------
+INSERT INTO `tbladmin_pages` VALUES ('0', '2', 'Users', '1', '2013-10-22 16:46:26', null);
+
+-- ----------------------------
+-- Table structure for `tbladmin_sections`
+-- ----------------------------
+DROP TABLE IF EXISTS `tbladmin_sections`;
+CREATE TABLE `tbladmin_sections` (
+  `id` mediumint(5) unsigned NOT NULL auto_increment,
+  `section` varchar(100) NOT NULL,
+  `date_add` datetime NOT NULL,
+  `date_upd` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of tbladmin_sections
+-- ----------------------------
+INSERT INTO `tbladmin_sections` VALUES ('1', 'Admin', '2013-10-22 16:46:01', null);
+
 -- ----------------------------
 -- Table structure for `tblroles`
 -- ----------------------------

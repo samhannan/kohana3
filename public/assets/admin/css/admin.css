@@ -25,7 +25,7 @@ ul.error {background:#fbdede; padding:10px 10px 5px 10px;}
 ul.error li {margin-bottom:5px;color:#d93636;}
 
 .left-nav-container {background:#e7ebef; margin:0 0 10px 0}
-.left-nav-container h1 {font-size:18px; color:#fff; background:#A3BDD0; padding:0 5px 0 5px; line-height:40px; margin:0; border-bottom:1px solid #99adbc}
+.left-nav-container h1 {font-size:18px; color:#fff; background:#A3BDD0; padding:0 5px 0 5px; line-height:40px; margin:0;}
 .left-nav-container .group ul {border-top:1px solid #fff; padding:10px 10px 0 10px}
 
 table.datagrid {width:100%}

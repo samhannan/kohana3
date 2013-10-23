@@ -41,7 +41,9 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 		}
 
 		// Build form
-		$form = new FormBuilder(Kohana::$config->load('forms/admin/user_create.conf'), 'forms/admin/default');
+		$formConf = Kohana::$config->load('forms/admin/user_create.conf');
+		$formConf['submit']['attributes']['value'] = $this->section;
+		$form = new FormBuilder($formConf, 'forms/admin/default');
 		$form = $form->build();
 		$view->set('form', $form);
 
