@@ -1,11 +1,10 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Admin_Index extends Controller_Admin_Admin {
+class Controller_Index extends Controller_Frontend {
 
 	public function action_index()
 	{
-		$this->section = 'Admin home';
-		$view = View::factory('admin/pages/home');
+		$view = View::factory('pages/home', array());
 		$this->content = $view;
 	}
 

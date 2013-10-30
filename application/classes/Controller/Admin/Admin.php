@@ -7,10 +7,13 @@ class Controller_Admin_Admin extends Controller_Frontend
 	protected $view_foot = 'admin/component/footer';
 	protected $model = false;
 	protected $section = false;
+	protected $redir = 'admin';
 
 	public function before()
 	{
 		$this->page_title = Kohana::$config->load('settings.site_name').' Admin';
+		// Succesful form submission flag
+		//$this->content->set('form_act', isset($_GET['act']) ? $_GET['act'] : null);
 	}
 
 	public function after()
@@ -20,7 +23,8 @@ class Controller_Admin_Admin extends Controller_Frontend
 		}
 		$this->setAdditionalVars();
 		$this->setAssets();
-		$this->getAdminPages();
+		// Form submission flag
+		$this->content->set('form_act', isset($_GET['act']) ? $_GET['act'] : null);
 		parent::after();
 	}
 
@@ -100,7 +104,8 @@ class Controller_Admin_Admin extends Controller_Frontend
 		}
 		$this->extra_vars = array(
 			'section' => $this->section,
-			'active_user' => $arrUser
+			'active_user' => $arrUser,
+			'admin_pages' => $this->getAdminPages(),
 		);
 	}
 
@@ -121,8 +126,35 @@ class Controller_Admin_Admin extends Controller_Frontend
 	 */
 	private function getAdminPages()
 	{
-		$objPages = ORM::factory('page')
-			->get_pages(Auth::instance()->get_user());
+		if(Auth::instance()->logged_in()) {
+			$objPages = ORM::factory('page')
+				->get_pages(Auth::instance()->get_user());
+
+			$arrPages = array();
+			foreach($objPages as $page) {
+				if(!array_key_exists($page->section->section, $arrPages)) {
+					$arrPages[$page->section->section] = array();
+				}
+				$arrPages[$page->section->section][] = array(
+					'page' => $page->page,
+					'url' => $page->location
+				);
+			}
+			return $arrPages;
+		} else {
+			return array();
+		}
+	}
+
+	/**
+	 * Get redir after successful form post
+	 * @param boolean $id
+	 */
+	protected function getRedir($id)
+	{
+		$redir = 'admin/'.$this->request->controller().'/?act=';
+		$redir .= $id ? 'upd' : 'add';
+		return $redir;
 	}
 
 }

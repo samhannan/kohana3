@@ -15,22 +15,7 @@
 	<!-- Main container -->
 	<div class="container">
 		<!-- Left nav -->
-		<div class="left-nav-container four columns">
-			<div class="group">
-				<h1>User</h1>
-				<ul>
-					<li>Item 1</li>
-					<li>Item 2</li>
-				</ul>
-			</div>
-			<div class="group">
-				<h1>Pages</h1>
-				<ul>
-					<li>Item 1</li>
-					<li>Item 2</li>
-				</ul>
-			</div>
-		</div>
+		<?php include Kohana::find_file('views', 'admin/component/menu'); ?>
 		<div class="twelve columns">
 			<div class="pagetitle"><h2><?php echo $section; ?></h2></div>
 			<?php echo $content; ?>

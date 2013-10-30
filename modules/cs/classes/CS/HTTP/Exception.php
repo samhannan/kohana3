@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct script access.');
 
-class HTTP_Exception extends Kohana_HTTP_Exception {
+class CS_HTTP_Exception extends Kohana_HTTP_Exception {
 
     /**
      * Generate a Response for all Exceptions without a more specific override

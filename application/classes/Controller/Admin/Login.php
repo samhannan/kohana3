@@ -12,8 +12,6 @@ class Controller_Admin_Login extends Controller_Admin_Admin {
 		$view = View::factory('admin/pages/login');
 		$view->bind('errors', $errors);
 
-		echo Auth::instance()->hash_password('samcloud');
-
 		$form = new FormBuilder(Kohana::$config->load('forms/admin/user_login.conf'), 'forms/admin/default');
 		$form = $form->build();
 		$view->set('form', $form);
@@ -35,7 +33,7 @@ class Controller_Admin_Login extends Controller_Admin_Admin {
 			$errors = $validation->errors('model/user');
 		}
 
-		$this->content = $view->render();
+		$this->content = $view;
 	}
 
 	/**

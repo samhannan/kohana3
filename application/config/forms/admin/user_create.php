@@ -10,7 +10,7 @@ return array(
 				'label' => 'Email Address',
 				'required' => true,
 				'attributes' => array(
-					'name' => 'emaill',
+					'name' => 'email',
 					'type' => 'text',
 				)
 			),

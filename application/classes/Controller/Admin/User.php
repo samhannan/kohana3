@@ -30,6 +30,7 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 		// Prepopulate post data if editing record
 		$id = $this->request->param('id', false);
 		$user = ORM::factory($this->model, $id);
+
 		if($id) {
 			$this->section = 'Edit User';
 			if($this->request->method() !== 'POST') {
@@ -37,13 +38,13 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 				parent::setPost($id);
 				// User Detail
 				parent::setPost($user->detail->id, 'user_detail');
+				// User Role
+				$this->request->post('role', $user->roles->order_by('id', 'desc')->find()->id);
 			}
 		}
 
 		// Build form
-		$formConf = Kohana::$config->load('forms/admin/user_create.conf');
-		$formConf['submit']['attributes']['value'] = $this->section;
-		$form = new FormBuilder($formConf, 'forms/admin/default');
+		$form = new FormBuilder(Kohana::$config->load('forms/admin/user_create.conf'), 'forms/admin/default');
 		$form = $form->build();
 		$view->set('form', $form);
 
@@ -89,7 +90,7 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 						->values($this->request->post(), array('user_id','firstname','surname'));
 					$user_detail->user_id = $user->id;
 					$user_detail->save();
-
+					HTTP::redirect(parent::getRedir($id));
 				} catch (ORM_Validation_Exception $e) {
 					$errors = $e->errors();
 				}
@@ -97,7 +98,7 @@ class Controller_Admin_User extends Controller_Admin_Admin {
 				$errors = $external_validation->errors('validation');
 			}
 		}
-		$this->content = $view->render();
+		$this->content = $view;
 	}
 
 	public function action_delete()

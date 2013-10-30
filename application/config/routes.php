@@ -43,6 +43,6 @@ Route::set('admin', '<directory>(/<controller>(/<action>(/<id>)))',
  */
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
-		'controller' => 'welcome',
+		'controller' => 'index',
 		'action'     => 'index',
 ));

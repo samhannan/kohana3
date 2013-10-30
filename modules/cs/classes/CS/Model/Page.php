@@ -4,7 +4,7 @@ class CS_Model_Page extends ORM
 {
 	protected $_table_name = 'admin_pages';
 
-	protected $_has_one = array(
+	protected $_belongs_to = array(
 		'section' => array('model' => 'Section', 'foreign_key' => 'section_id'),
 	);
 
@@ -14,6 +14,10 @@ class CS_Model_Page extends ORM
 			'page' => array(
 				array('not_empty'),
 				array('max_length', 100)
+			),
+			'location' => array(
+					array('not_empty'),
+					array('max_length', 100)
 			),
 			'role_id' => array(
 				array('not_empty'),
@@ -39,11 +43,7 @@ class CS_Model_Page extends ORM
 			$arrRoles[] = $role->id;
 		}
 
-		$pages = ORM::factory('Page')->where('role_id', 'IN', $arrRoles)->find_all();
-
-		foreach($pages AS $page) {
-			echo $page->page;
-		}
+		return ORM::factory('Page')->where('role_id', 'IN', $arrRoles)->find_all();
 	}
 
 }

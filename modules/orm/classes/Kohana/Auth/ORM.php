@@ -227,7 +227,7 @@ class Kohana_Auth_ORM extends Auth {
 			{
 				// Delete all user tokens. This isn't the most elegant solution but does the job
 				$tokens = ORM::factory('User_Token')->where('user_id','=',$token->user_id)->find_all();
-				
+
 				foreach ($tokens as $_token)
 				{
 					$_token->delete();

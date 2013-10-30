@@ -1,1 +1,1 @@
-Please select an option on the left to continue.
+Please select a menu option to continue.

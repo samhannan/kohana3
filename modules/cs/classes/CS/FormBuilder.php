@@ -86,9 +86,10 @@ class CS_FormBuilder
 			// Field
 			switch($conf['attributes']['type']) {
 				case 'text':
+				case 'password':
 					$field = Form::input(
 						$conf['attributes']['name'],
-						Arr::get(Request::current()->post(), $conf['attributes']['name'], ''),
+						$conf['attributes']['type'] != 'password' ? Arr::get(Request::current()->post(), $conf['attributes']['name'], '') : '',
 						$conf['attributes']
 					);
 				break;
@@ -97,7 +98,7 @@ class CS_FormBuilder
 						$conf['attributes']['name'],
 						$conf['options'],
 						Arr::get(Request::current()->post(), $conf['attributes']['name'], ''),
-						$conf
+						$conf['attributes']
 					);
 				break;
 			}

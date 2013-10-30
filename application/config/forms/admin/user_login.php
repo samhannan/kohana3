@@ -20,7 +20,7 @@ return array(
 				'required' => true,
 				'attributes' => array(
 					'name' => 'password',
-					'type' => 'text',
+					'type' => 'password',
 				)
 			)
 		),
